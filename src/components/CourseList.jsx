@@ -1,12 +1,20 @@
+import './styles.css'
+
 const CourseList = ({ courses }) => {
     return (
-        <div>
+        <div className='course-grid'>
             {Object.keys(courses).map((item) => {
                 const course = courses[item];
                 return (
-                    <p>
-                        {course.term} CS {course.number}: {course.title}
-                    </p>
+                    <div className='course-content'>
+                        <h2>{course.term} CS {course.number}</h2>
+                        <p>
+                            {course.title}
+                        </p>
+                        <p>
+                            {course.meets}
+                        </p>
+                    </div>
                 );
             })}
         </div>
