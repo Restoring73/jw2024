@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Banner from './components/Banner';
 import CourseList from './components/CourseList';
+import Chooser from './components/choosing';
 import {useJsonQuery} from './utilities/Courses';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './App.css';
@@ -14,11 +15,16 @@ const App = () => {
   if (isLoading) return <h1>Loading course data...</h1>;
   if (!data || !data.title || !data.courses) return <h1>No course data found</h1>;
 
+  const [selectedTerm, setSelectedTerm] = useState('Fall');
+
   return (
     <QueryClientProvider client={queryClient}>
       <div className="App">
         <Banner title={data.title} />
-        <CourseList courses={data.courses} />
+
+        <Chooser selectedTerm={selectedTerm} setSelectedTerm={setSelectedTerm} />
+
+        <CourseList courses={data.courses} selectedTerm={selectedTerm} />
       </div>
     </QueryClientProvider>
   );

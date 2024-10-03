@@ -1,9 +1,10 @@
 import './styles.css'
 
-const CourseList = ({ courses }) => {
+const CourseList = ({ courses, selectedTerm }) => {
+    const filteredCourses = Object.keys(courses).filter(item => courses[item].term === selectedTerm)
     return (
         <div className='course-grid'>
-            {Object.keys(courses).map((item) => {
+            {filteredCourses.map((item) => {
                 const course = courses[item];
                 return (
                     <div className='course-content'>
