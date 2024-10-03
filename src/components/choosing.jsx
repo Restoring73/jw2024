@@ -2,13 +2,11 @@ import { useState, useEffect } from 'react';
 
 const choices = ['Fall', 'Spring', 'Winter'];
 
-const Chooser = ({ selectedTerm, setSelectedTerm }) => {
-  const [choice, setChoice] = useState(choices.indexOf(selectedTerm));
+const Chooser = ({ setSelectedTerm }) => {
+  const [choice, setChoice] = useState(0);
 
   const nextChoice = () => {
-    const newChoice = (choice + 1) % choices.length;
-    setChoice(newChoice);
-    setSelectedTerm(choices[newChoice]);
+    setChoice((choice + 1) % choices.length);
   };
 
   useEffect(() => {
@@ -16,10 +14,9 @@ const Chooser = ({ selectedTerm, setSelectedTerm }) => {
   }, [choice, setSelectedTerm]);
 
   return (
-    <button onClick={nextChoice}>
-      {choices[choice]}
-    </button>
+    <button onClick={nextChoice}>{choices[choice]}</button>
   );
 };
 
 export default Chooser;
+
