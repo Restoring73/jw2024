@@ -21,3 +21,8 @@
     margin: 5px 0;
     font-size: 14px;
 }
+
+.course-content.selected {
+    background-color: lemonchiffon;
+    border-color: green;
+}

@@ -12,6 +12,13 @@ const App = () => {
   const [data, isLoading, error] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses.php');
   
   const [selectedTerm, setSelectedTerm] = useState('Fall');
+  const [selectedCourses, setSelectedCourses] = useState([]);
+
+  const toggleCourseSelection = (courseId) => setSelectedCourses(
+    selectedCourses.includes(courseId)
+      ? selectedCourses.filter(id => id !== courseId)
+      : [...selectedCourses, courseId]
+  );
 
   if (error) return <h1>Error loading course data: {`${error}`}</h1>;
   if (isLoading) return <h1>Loading course data...</h1>;
@@ -24,7 +31,12 @@ const App = () => {
         
         <Chooser selectedTerm={selectedTerm} setSelectedTerm={setSelectedTerm} />
 
-        <CourseList courses={data.courses} selectedTerm={selectedTerm} />
+        <CourseList 
+          courses={data.courses}
+          selectedTerm={selectedTerm}
+          selectedCourses={selectedCourses}
+          toggleCourseSelection={toggleCourseSelection}
+        />
       </div>
     </QueryClientProvider>
   );

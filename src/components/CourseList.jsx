@@ -1,21 +1,20 @@
 import './styles.css'
+import Course from './Course'
 
-const CourseList = ({ courses, selectedTerm }) => {
+const CourseList = ({ courses, selectedTerm, selectedCourses, toggleCourseSelection }) => {
     const filteredCourses = Object.keys(courses).filter(item => courses[item].term === selectedTerm)
     return (
         <div className='course-grid'>
             {filteredCourses.map((item) => {
                 const course = courses[item];
                 return (
-                    <div className='course-content'>
-                        <h2>{course.term} CS {course.number}</h2>
-                        <p>
-                            {course.title}
-                        </p>
-                        <p>
-                            {course.meets}
-                        </p>
-                    </div>
+                    <Course 
+                        key={item}
+                        courseId={item}
+                        course={course}
+                        selectedCourses={selectedCourses}
+                        toggleCourseSelection={toggleCourseSelection}
+                    />
                 );
             })}
         </div>
