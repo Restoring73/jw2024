@@ -1,0 +1,14 @@
+.course-plan {
+    padding: 10px;
+}
+
+.course-plan h2 {
+    margin-bottom: 15px;
+}
+
+.course-plan-item {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+  
