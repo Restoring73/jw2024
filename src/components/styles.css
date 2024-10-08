@@ -12,6 +12,12 @@
     transition: transform 0.3s;
 }
 
+.course-content.unselectable {
+    background-color: #f0f0f0;
+    color: #999;
+    cursor: not-allowed;
+}
+
 .course-content h2 {
     font-size: 18px;
     margin-bottom: 10px;
