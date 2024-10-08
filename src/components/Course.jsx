@@ -1,8 +1,8 @@
 import './styles.css';
+import { Link } from 'react-router-dom';
 
 const Course = ({ courseId, course, selectedCourses, toggleCourseSelection, hasConflict}) => {
     const isSelected = selectedCourses.includes(courseId);
-
     const isSelectable = isSelected || !hasConflict;
 
     return (
@@ -15,6 +15,14 @@ const Course = ({ courseId, course, selectedCourses, toggleCourseSelection, hasC
         <p>{course.meets}</p>
         {isSelected && <span className="selected-icon">✔</span>}
         {!isSelectable && <span className="unselectable-icon">X</span>}
+        
+        <Link 
+          to={`/edit/${courseId}`} 
+          className="edit-course-btn" 
+          onClick={(e) => e.stopPropagation()}
+        >
+          Edit Course
+        </Link>
       </div>
     );
 };
