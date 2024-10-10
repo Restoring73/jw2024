@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './EditCourseForm.css'
+import { useFormData } from '../utilities/useFormData';
+import { validateCourseForm } from '../utilities/validators';
 
 const EditCourseForm = ({ courses }) => {
   const navigate = useNavigate();
@@ -8,8 +9,7 @@ const EditCourseForm = ({ courses }) => {
 
   const course = courses[courseId];
 
-  const [title, setTitle] = useState(course.title);
-  const [meets, setMeets] = useState(course.meets);
+  const [formData, handleInputChange] = useFormData(validateCourseForm, { title: course.title, meets: course.meets });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,19 +28,22 @@ const EditCourseForm = ({ courses }) => {
         <input 
           type="text" 
           id="title" 
-          value={title} 
-          onChange={(e) => setTitle(e.target.value)} 
+          value={formData.values.title} 
+          onChange={handleInputChange}
+          required
         />
+        {formData.errors?.title && <p className="error-message">{formData.errors.title}</p>}
       </div>
-      
+
       <div className="form-group">
         <label htmlFor="meets">Meeting Times</label>
         <input 
           type="text" 
           id="meets" 
-          value={meets} 
-          onChange={(e) => setMeets(e.target.value)} 
+          value={formData.values.meets} 
+          onChange={handleInputChange} 
         />
+        {formData.errors?.meets && <p className="error-message">{formData.errors.meets}</p>}
       </div>
 
       <button type="button" onClick={handleCancel} className="btn-cancel">Cancel</button>
