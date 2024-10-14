@@ -9,7 +9,6 @@ import './App.css';
 
 const App = () => {
   const [courses, error] = useDbData('/courses');
-
   const [selectedTerm, setSelectedTerm] = useState('Fall');
   const [selectedCourses, setSelectedCourses] = useState([]);
 
@@ -21,7 +20,7 @@ const App = () => {
     );
   };
 
-  if (error) return <h1>Error loading data: {error.toString()}</h1>;
+  if (error) return <h1>Error loading courses: {error.toString()}</h1>;
   if (!courses) return <h1>Loading courses...</h1>;
 
   return (
@@ -36,17 +35,14 @@ const App = () => {
                 <Chooser selectedTerm={selectedTerm} setSelectedTerm={setSelectedTerm} />
                 <CourseList 
                   courses={courses}
-                  selectedTerm={selectedTerm} 
-                  selectedCourses={selectedCourses} 
-                  toggleCourseSelection={toggleCourseSelection} 
+                  selectedTerm={selectedTerm}
+                  selectedCourses={selectedCourses}
+                  toggleCourseSelection={toggleCourseSelection}
                 />
               </>
-            } 
+            }
           />
-          <Route 
-            path="/edit/:courseId" 
-            element={<EditCourseForm courses={courses} />}
-          />
+          <Route path="/edit/:courseId" element={<EditCourseForm courses={courses} />} />
         </Routes>
       </Router>
     </div>
