@@ -5,12 +5,14 @@ import CourseList from './components/CourseList';
 import Chooser from './components/choosing';
 import EditCourseForm from './components/EditCourseForm';
 import { useDbData } from './utilities/firebaseHooks';
+import { useProfile } from './utilities/firebaseAuth';
 import './App.css';
 
 const App = () => {
   const [courses, error] = useDbData('/courses');
   const [selectedTerm, setSelectedTerm] = useState('Fall');
   const [selectedCourses, setSelectedCourses] = useState([]);
+  const [profile, profileLoading, profileError] = useProfile();
 
   const toggleCourseSelection = (courseId) => {
     setSelectedCourses(
@@ -22,6 +24,8 @@ const App = () => {
 
   if (error) return <h1>Error loading courses: {error.toString()}</h1>;
   if (!courses) return <h1>Loading courses...</h1>;
+  if (profileError) return <h1>Error loading profile: {profileError.toString()}</h1>;
+  if (profileLoading) return <h1>Loading profile...</h1>;
 
   return (
     <div className="App">

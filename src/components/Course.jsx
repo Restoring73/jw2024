@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuthState } from '../utilities/firebaseAuth';
+import { useProfile } from '../utilities/firebaseAuth';
 
 const Course = ({ courseId, course, selectedCourses, toggleCourseSelection, hasConflict }) => {
-  const [user] = useAuthState();
+  const [profile, profileLoading] = useProfile();
 
   const isSelected = selectedCourses.includes(courseId);
   const isSelectable = isSelected || !hasConflict;
@@ -19,10 +20,11 @@ const Course = ({ courseId, course, selectedCourses, toggleCourseSelection, hasC
       {isSelected && <span className="selected-icon">✔</span>}
       {!isSelected && hasConflict && <span className="unselectable-icon">X</span>}
 
-      {user && <Link to={`/edit/${courseId}`} className="edit-course-btn">Edit</Link>}
+      {profile?.isAdmin && (
+        <Link to={`/edit/${courseId}`} className="edit-course-btn">Edit</Link>
+      )}
     </div>
   );
 };
 
 export default Course;
-
